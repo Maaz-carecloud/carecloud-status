@@ -69,7 +69,7 @@ class Incident extends Model
      */
     public function scopeActive($query)
     {
-        return $query->whereNotIn('status', [IncidentStatus::RESOLVED]);
+        return $query->whereNotIn('incidents.status', [IncidentStatus::RESOLVED]);
     }
 
     /**
@@ -77,7 +77,7 @@ class Incident extends Model
      */
     public function scopeResolved($query)
     {
-        return $query->where('status', IncidentStatus::RESOLVED);
+        return $query->where('incidents.status', IncidentStatus::RESOLVED);
     }
 
     /**

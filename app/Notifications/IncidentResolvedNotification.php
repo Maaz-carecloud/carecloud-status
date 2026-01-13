@@ -25,15 +25,18 @@ class IncidentResolvedNotification extends Notification
      */
     public function via(object $notifiable): array
     {
-        $channels = ['mail'];
+        $channels = [];
+
+        // Add email channel by default (always send emails)
+        $channels[] = 'mail';
 
         // Add SMS channel if subscriber has phone number and channel exists
-        if (isset($notifiable->phone) && class_exists('App\Notifications\Channels\SmsChannel')) {
+        if (!empty($notifiable->phone) && class_exists('App\Notifications\Channels\SmsChannel')) {
             $channels[] = 'sms';
         }
 
         // Add Teams channel if subscriber has Teams webhook and channel exists
-        if (isset($notifiable->teams_webhook_url) && class_exists('App\Notifications\Channels\TeamsChannel')) {
+        if (!empty($notifiable->teams_webhook_url) && class_exists('App\Notifications\Channels\TeamsChannel')) {
             $channels[] = 'teams';
         }
 

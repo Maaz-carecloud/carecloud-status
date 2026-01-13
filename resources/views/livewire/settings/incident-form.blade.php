@@ -144,7 +144,8 @@
                             @forelse($components as $component)
                             <div class="flex items-center py-2 hover:bg-gray-50 px-2 rounded gap-3">
                                 <label class="flex items-center flex-1 cursor-pointer">
-                                    <input type="checkbox" wire:model.live="affectedComponents" value="{{ $component->id }}"
+                                    <input type="checkbox" wire:model.live="affectedComponents"
+                                        value="{{ $component->id }}"
                                         class="rounded border-gray-300 text-blue-600 focus:ring-2 focus:ring-blue-500">
                                     <span class="ml-3 text-gray-700">{{ $component->name }}</span>
                                     <span class="ml-auto px-2 py-1 text-xs rounded"
@@ -152,7 +153,7 @@
                                         Current: {{ $component->status->label() }}
                                     </span>
                                 </label>
-                                
+
                                 @if(in_array($component->id, $affectedComponents))
                                 <div class="flex items-center gap-2">
                                     <span class="text-sm text-gray-600">→</span>
@@ -174,7 +175,7 @@
                         <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
                         <p class="text-sm text-gray-600 mt-1">
-                            Select components and set their status during this incident. 
+                            Select components and set their status during this incident.
                             The arrow (→) shows the status change that will be applied.
                         </p>
                     </div>
