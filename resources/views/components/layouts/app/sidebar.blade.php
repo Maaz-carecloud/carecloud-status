@@ -133,9 +133,9 @@
                 <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')"
                     wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
                 <flux:navlist.item icon="chart-bar" :href="route('analytics.index')"
-                    :current="request()->routeIs('analytics.*')" wire:navigate>{{ __('Analytics') }}</flux:navlist.item>
+                    :current="request()->routeIs('analytics.*')">{{ __('Analytics') }}</flux:navlist.item>
                 <flux:navlist.item icon="presentation-chart-line" :href="route('metrics.dashboard')"
-                    :current="request()->routeIs('metrics.*')" wire:navigate>{{ __('Metrics') }}</flux:navlist.item>
+                    :current="request()->routeIs('metrics.*')">{{ __('Metrics') }}</flux:navlist.item>
             </flux:navlist.group>
 
             <flux:navlist.group :heading="__('Management')" class="grid">
