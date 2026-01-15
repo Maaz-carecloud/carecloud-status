@@ -99,6 +99,7 @@ class SmsChannel
     /**
      * Normalize phone number to handle various formats.
      * Accepts numbers with or without country code.
+     * CareCloud API expects 10-digit US phone numbers without country code.
      *
      * @param string $phone
      * @return string|null
@@ -118,10 +119,18 @@ class SmsChannel
 
         // Handle different formats:
         // - If 10 digits: assume US number without country code (e.g., 7328735133)
-        // - If 11 digits starting with 1: US number with country code (e.g., 17328735133)
-        // - If more than 11 digits: international number with country code
-        // - Return as-is for the API to handle
+        // - If 11 digits starting with 1: Strip the leading 1 (US country code)
+        // - Otherwise: return null for invalid formats
+        
+        if (strlen($cleaned) === 10) {
+            // Already in correct format
+            return $cleaned;
+        } elseif (strlen($cleaned) === 11 && $cleaned[0] === '1') {
+            // Remove US country code (1) to get 10-digit number
+            return substr($cleaned, 1);
+        }
 
-        return $cleaned;
+        // Invalid length for US phone numbers
+        return null;
     }
 }
