@@ -55,7 +55,7 @@
 
                     {{-- Latest Updates --}}
                     @if($incident->updates->count() > 0)
-                    <div class="space-y-2 mt-4 border-t pt-4">
+                    <div class="space-y-2 mt-4 border-t pt-4 max-h-96 overflow-y-auto">
                         @foreach($incident->updates as $update)
                         <div class="text-sm">
                             <p class="text-gray-600">
