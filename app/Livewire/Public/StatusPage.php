@@ -44,6 +44,16 @@ class StatusPage extends LivewireComponent
                 ->get();
         });
 
+        // Get last resolved incident
+        $lastResolvedIncident = Cache::remember('status_page_last_resolved_incident', 60, function () {
+            return Incident::where('status', 'resolved')
+                ->with(['components', 'updates' => function ($query) {
+                    $query->latest();
+                }])
+                ->orderBy('resolved_at', 'desc')
+                ->first();
+        });
+
         // Get past incidents (last 30 days, resolved)
         $pastIncidents = Cache::remember('status_page_past_incidents', 60, function () {
             return Incident::where('status', 'resolved')
@@ -66,6 +76,7 @@ class StatusPage extends LivewireComponent
             'components' => $components,
             'activeIncidents' => $activeIncidents,
             'scheduledMaintenance' => $scheduledMaintenance,
+            'lastResolvedIncident' => $lastResolvedIncident,
             'pastIncidents' => $pastIncidents,
             'overallStatus' => $overallStatus,
         ]);
@@ -106,6 +117,7 @@ class StatusPage extends LivewireComponent
         Cache::forget('status_page_components');
         Cache::forget('status_page_active_incidents');
         Cache::forget('status_page_scheduled_maintenance');
+        Cache::forget('status_page_last_resolved_incident');
         Cache::forget('status_page_past_incidents');
     }
 }

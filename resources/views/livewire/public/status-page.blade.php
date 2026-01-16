@@ -132,6 +132,64 @@
             </div>
         </section>
 
+        {{-- Last Resolved Incident --}}
+        @if($lastResolvedIncident)
+        <section>
+            <h2 class="text-2xl font-bold mb-4">Last Resolved Incident</h2>
+            <div class="space-y-4">
+                <div class="border rounded-lg p-6 bg-white shadow-sm">
+                    <div class="flex items-start justify-between mb-3">
+                        <div>
+                            <h3 class="text-xl font-semibold">{{ $lastResolvedIncident->name }}</h3>
+                            <div class="flex gap-2 mt-2">
+                                <span class="px-2 py-1 text-xs font-semibold rounded"
+                                    style="border: 1px solid {{ $lastResolvedIncident->status->color() }}; color: {{ $lastResolvedIncident->status->color() }};">
+                                    {{ $lastResolvedIncident->status->label() }}
+                                </span>
+                                <span class="px-2 py-1 text-xs font-semibold rounded"
+                                    style="border: 1px solid {{ $lastResolvedIncident->impact->color() }}; color: {{ $lastResolvedIncident->impact->color() }};">
+                                    {{ $lastResolvedIncident->impact->label() }} Impact
+                                </span>
+                            </div>
+                        </div>
+                        <time class="text-sm text-gray-500">
+                            {{ $lastResolvedIncident->resolved_at ?
+                            $lastResolvedIncident->resolved_at->timezone('America/New_York')->diffForHumans() :
+                            $lastResolvedIncident->created_at->timezone('America/New_York')->diffForHumans() }}
+                        </time>
+                    </div>
+
+                    {{-- Affected Components --}}
+                    @if($lastResolvedIncident->components->count() > 0)
+                    <div class="mb-3">
+                        <p class="text-sm text-gray-600">
+                            <strong>Affected:</strong>
+                            {{ $lastResolvedIncident->components->pluck('name')->join(', ') }}
+                        </p>
+                    </div>
+                    @endif
+
+                    {{-- Latest Updates --}}
+                    @if($lastResolvedIncident->updates->count() > 0)
+                    <div class="space-y-2 mt-4 border-t pt-4 max-h-96 overflow-y-auto">
+                        @foreach($lastResolvedIncident->updates as $update)
+                        <div class="text-sm">
+                            <p class="text-gray-600">
+                                <strong>{{ $update->created_at->timezone('America/New_York')->format('M d, H:i')
+                                    }}</strong>
+                                -
+                                <span class="font-semibold">{{ $update->status->label() }}</span>
+                            </p>
+                            <p class="mt-1">{!! nl2br(e($update->message)) !!}</p>
+                        </div>
+                        @endforeach
+                    </div>
+                    @endif
+                </div>
+            </div>
+        </section>
+        @endif
+
         {{-- Auto-refresh indicator --}}
         <div class="text-center text-sm text-gray-500">
             <p>This page refreshes automatically every 60 seconds</p>
