@@ -102,7 +102,7 @@ class ComponentStatusChangedNotification extends Notification
 
         $themeColor = match($this->newStatus) {
             'operational' => '28a745', // Green
-            'degraded_performance' => 'ffc107', // Yellow
+            'degraded_performance' => 'D97706', // Amber/Dark Yellow
             'partial_outage' => 'fd7e14', // Orange
             'major_outage' => 'dc3545', // Red
             'under_maintenance' => '6c757d', // Gray

@@ -24,7 +24,7 @@ enum IncidentStatus: string
         return match ($this) {
             self::INVESTIGATING => 'red',
             self::IDENTIFIED => 'orange',
-            self::MONITORING => 'yellow',
+            self::MONITORING => '#D97706',
             self::RESOLVED => 'green',
         };
     }
