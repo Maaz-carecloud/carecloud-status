@@ -71,7 +71,7 @@ class ComponentStatusChangedNotification extends Notification
             ->line("**{$this->component->name}**")
             ->line("Status has changed from **{$this->oldStatus}** to **{$this->newStatus}**.")
             ->when($this->component->description, function ($mail) {
-                return $mail->line('<div style="text-align: justify;">' . nl2br(e($this->component->description)) . '</div>');
+                return $mail->line('<div style="text-align: justify;">' . nl2br($this->component->description) . '</div>');
             })
             ->action('View Status Page', url('/'))
             ->line('We will keep you updated if the status changes again.');

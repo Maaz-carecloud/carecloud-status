@@ -65,7 +65,7 @@ class IncidentResolvedNotification extends Notification
             })
             ->line("Duration: {$duration}")
             ->when($latestUpdate, function ($mail) use ($latestUpdate) {
-                return $mail->line('Resolution: <div style="text-align: justify;">' . nl2br(e($latestUpdate->message)) . '</div>');
+                return $mail->line('Resolution: <div style="text-align: justify;">' . nl2br($latestUpdate->message) . '</div>');
             })
             ->action('View Status Page', url('/'))
             ->line('All systems are now operational. Thank you for your patience.');
