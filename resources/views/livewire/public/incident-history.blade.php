@@ -140,7 +140,7 @@
                 <p class="text-sm text-gray-600 mb-1">
                     <strong>Latest Update:</strong>
                 </p>
-                <p class="text-sm">{{ $incident->updates->first()->message }}</p>
+                <p class="text-sm">{!! nl2br(e($incident->updates->first()->message)) !!}</p>
             </div>
             @endif
         </article>
