@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use App\Models\IncidentUpdate;
+use Illuminate\Support\HtmlString;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
@@ -59,7 +60,7 @@ class IncidentUpdatedNotification extends Notification
             ->when($componentNames, function ($mail) use ($componentNames) {
                 return $mail->line("Affected Components: {$componentNames}");
             })
-            ->line('<div style="text-align: justify;">' . nl2br($this->update->message) . '</div>')
+            ->line(new HtmlString('<div style="text-align: justify;">' . nl2br($this->update->message) . '</div>'))
             ->action('View Status Page', url('/'))
             ->line("Posted by: {$this->update->user->name}")
             ->line("Time: {$this->update->created_at->timezone('America/New_York')->format('M d, Y H:i T')}");

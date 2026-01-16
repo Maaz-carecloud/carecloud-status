@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use App\Models\Component;
+use Illuminate\Support\HtmlString;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
@@ -71,7 +72,7 @@ class ComponentStatusChangedNotification extends Notification
             ->line("**{$this->component->name}**")
             ->line("Status has changed from **{$this->oldStatus}** to **{$this->newStatus}**.")
             ->when($this->component->description, function ($mail) {
-                return $mail->line('<div style="text-align: justify;">' . nl2br($this->component->description) . '</div>');
+                return $mail->line(new HtmlString('<div style="text-align: justify;">' . nl2br($this->component->description) . '</div>'));
             })
             ->action('View Status Page', url('/'))
             ->line('We will keep you updated if the status changes again.');
