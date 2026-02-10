@@ -72,6 +72,9 @@ class StatusPage extends LivewireComponent
         // Calculate overall system status
         $overallStatus = $this->calculateOverallStatus($components);
 
+        // Get about us content from settings
+        $aboutUs = \App\Models\Setting::get('about_us');
+
         return view('livewire.public.status-page', [
             'components' => $components,
             'activeIncidents' => $activeIncidents,
@@ -79,6 +82,7 @@ class StatusPage extends LivewireComponent
             'lastResolvedIncident' => $lastResolvedIncident,
             'pastIncidents' => $pastIncidents,
             'overallStatus' => $overallStatus,
+            'aboutUs' => $aboutUs,
         ]);
     }
 

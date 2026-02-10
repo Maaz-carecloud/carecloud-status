@@ -27,6 +27,17 @@
                 </div>
             </div>
 
+            {{-- About Us Content --}}
+            <div>
+                <flux:heading size="lg">About Us Content</flux:heading>
+                <flux:subheading>Text displayed in the "About us" section on your public status page</flux:subheading>
+
+                <div class="mt-4">
+                    <flux:textarea wire:model="aboutUs" rows="6" placeholder="Welcome to our status page..." />
+                    @error('aboutUs') <span class="text-sm text-red-600 mt-1">{{ $message }}</span> @enderror
+                </div>
+            </div>
+
             {{-- Theme Color --}}
             <div>
                 <flux:heading size="lg">Theme Color</flux:heading>

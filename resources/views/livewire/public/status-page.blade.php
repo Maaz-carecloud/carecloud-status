@@ -2,6 +2,9 @@
     {{-- Main Content --}}
     <div class="flex-1 space-y-8">
         <h1 class="text-2xl mb-2 font-bold">About us</h1>
+        @if($aboutUs)
+        <div class="max-w-[90ch] whitespace-pre-line">{{ $aboutUs }}</div>
+        @else
         <p class="mb-1 max-w-[90ch]">Welcome to CareCloud's home for real-time information on system performance. Here
             you'll find
             live and
@@ -11,6 +14,7 @@
                 931-3832</span> or email us at <a href="mailto:support@carecloud.com"
                 class="text-blue-500">support@carecloud.com</a> for any
             additional questions or concerns.</p>
+        @endif
         {{-- Overall Status Banner --}}
         <div class="rounded-lg border-2 p-6 text-center" style="border-color: {{ $overallStatus['color'] }};">
             <h1 class="text-3xl font-bold mb-2">{{ $overallStatus['label'] }}</h1>

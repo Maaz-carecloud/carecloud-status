@@ -9,9 +9,11 @@ use App\Models\Incident;
 use App\Models\Subscriber;
 use App\Services\MetricsService;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component as LivewireComponent;
 
+#[Layout('components.layouts.app')]
 #[Title('Dashboard')]
 class Dashboard extends LivewireComponent
 {

@@ -27,9 +27,15 @@ class Appearance extends Component
     #[Validate('nullable|string|max:255')]
     public $siteName;
 
+    #[Validate('nullable|string|max:5000')]
+    public $aboutUs;
+
     public $currentAdminLogo;
+
     public $currentPublicLogo;
+
     public $currentFavicon;
+
     public $currentSiteName;
 
     public function mount(): void
@@ -40,6 +46,7 @@ class Appearance extends Component
         $this->currentSiteName = Setting::get('site_name', config('app.name'));
         $this->siteName = $this->currentSiteName;
         $this->themeColor = Setting::get('theme_color', '#009BDE');
+        $this->aboutUs = Setting::get('about_us');
     }
 
     public function save(): void
@@ -50,6 +57,7 @@ class Appearance extends Component
             'favicon' => 'nullable|file|mimes:ico,png,svg|max:1024',
             'siteName' => 'nullable|string|max:255',
             'themeColor' => 'nullable|string|max:7',
+            'aboutUs' => 'nullable|string|max:5000',
         ]);
 
         // Handle admin logo upload
@@ -102,6 +110,9 @@ class Appearance extends Component
             Setting::set('theme_color', $this->themeColor);
         }
 
+        // Handle about us content
+        Setting::set('about_us', $this->aboutUs ?? '');
+
         $this->dispatch('notify', type: 'success', message: 'Appearance settings updated successfully.');
     }
 
@@ -110,10 +121,10 @@ class Appearance extends Component
         if ($this->currentAdminLogo && \Storage::disk('public')->exists($this->currentAdminLogo)) {
             \Storage::disk('public')->delete($this->currentAdminLogo);
         }
-        
+
         Setting::forget('admin_logo');
         $this->currentAdminLogo = null;
-        
+
         $this->dispatch('notify', type: 'success', message: 'Admin logo removed successfully.');
     }
 
@@ -122,10 +133,10 @@ class Appearance extends Component
         if ($this->currentPublicLogo && \Storage::disk('public')->exists($this->currentPublicLogo)) {
             \Storage::disk('public')->delete($this->currentPublicLogo);
         }
-        
+
         Setting::forget('public_logo');
         $this->currentPublicLogo = null;
-        
+
         $this->dispatch('notify', type: 'success', message: 'Public logo removed successfully.');
     }
 
@@ -134,10 +145,10 @@ class Appearance extends Component
         if ($this->currentFavicon && \Storage::disk('public')->exists($this->currentFavicon)) {
             \Storage::disk('public')->delete($this->currentFavicon);
         }
-        
+
         Setting::forget('favicon');
         $this->currentFavicon = null;
-        
+
         $this->dispatch('notify', type: 'success', message: 'Favicon removed successfully.');
     }
 }
